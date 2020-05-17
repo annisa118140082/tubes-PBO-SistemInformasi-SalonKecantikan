@@ -18,6 +18,7 @@ public class keluhann extends javax.swing.JFrame {
         txtTanggal.setEditable(true);
         txtTanggal.setText(null);
         txtKeluhan.setText(null);
+        txtAlasan.setText(null);
         
     }
     private void tampilkan(){
@@ -25,6 +26,7 @@ public class keluhann extends javax.swing.JFrame {
         model.addColumn("No ");
         model.addColumn("Tanggal ");
         model.addColumn("keluhan");
+        model.addColumn("alasan");
       
         try{
             int no=1; //buat nambahin kolom nomor
@@ -34,7 +36,7 @@ public class keluhann extends javax.swing.JFrame {
             java.sql.ResultSet b=stm.executeQuery(sql);
             
             while(b.next()){
-                model.addRow(new Object[]{no++, b.getString(1),b.getString(2)});
+                model.addRow(new Object[]{no++, b.getString(1),b.getString(2),b.getString(3)});
                 
             }
           tabelKeluhann.setModel(model);
@@ -71,8 +73,11 @@ public class keluhann extends javax.swing.JFrame {
         tbHapus = new javax.swing.JButton();
         tbBatal = new javax.swing.JButton();
         tbKeluar = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        txtAlasan = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -85,18 +90,24 @@ public class keluhann extends javax.swing.JFrame {
         jLabel3.setText("Keluhan");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 210, -1, -1));
         getContentPane().add(txtTanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 107, 157, -1));
-        getContentPane().add(txtKeluhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 210, 262, 177));
+
+        txtKeluhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKeluhanActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtKeluhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 210, 160, 30));
 
         tabelKeluhann.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         tabelKeluhann.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nomor", "Tanggal", "Keluhan"
+                "Nomor", "Tanggal", "Keluhan", "alasan"
             }
         ));
         tabelKeluhann.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -106,7 +117,7 @@ public class keluhann extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabelKeluhann);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(558, 210, 367, 98));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 450, 98));
 
         tbSimpan.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         tbSimpan.setForeground(new java.awt.Color(204, 0, 0));
@@ -116,7 +127,7 @@ public class keluhann extends javax.swing.JFrame {
                 tbSimpanActionPerformed(evt);
             }
         });
-        getContentPane().add(tbSimpan, new org.netbeans.lib.awtextra.AbsoluteConstraints(558, 326, 100, -1));
+        getContentPane().add(tbSimpan, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 220, 100, -1));
 
         tbEdit.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         tbEdit.setForeground(new java.awt.Color(204, 0, 0));
@@ -126,7 +137,7 @@ public class keluhann extends javax.swing.JFrame {
                 tbEditActionPerformed(evt);
             }
         });
-        getContentPane().add(tbEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(558, 382, 100, -1));
+        getContentPane().add(tbEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 280, 100, -1));
 
         tbHapus.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         tbHapus.setForeground(new java.awt.Color(204, 0, 0));
@@ -136,7 +147,7 @@ public class keluhann extends javax.swing.JFrame {
                 tbHapusActionPerformed(evt);
             }
         });
-        getContentPane().add(tbHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(696, 326, 100, -1));
+        getContentPane().add(tbHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, 100, -1));
 
         tbBatal.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         tbBatal.setForeground(new java.awt.Color(204, 0, 0));
@@ -146,7 +157,7 @@ public class keluhann extends javax.swing.JFrame {
                 tbBatalActionPerformed(evt);
             }
         });
-        getContentPane().add(tbBatal, new org.netbeans.lib.awtextra.AbsoluteConstraints(696, 382, 100, -1));
+        getContentPane().add(tbBatal, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 280, 100, -1));
 
         tbKeluar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         tbKeluar.setForeground(new java.awt.Color(204, 0, 0));
@@ -156,16 +167,29 @@ public class keluhann extends javax.swing.JFrame {
                 tbKeluarActionPerformed(evt);
             }
         });
-        getContentPane().add(tbKeluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(825, 326, 100, -1));
+        getContentPane().add(tbKeluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 240, 100, -1));
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel4.setText("Alasan");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 60, 20));
+
+        txtAlasan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAlasanActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtAlasan, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, 180, 160));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("FORM KELUHAN");
-        jPanel1.add(jLabel1);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 540));
+        jPanel2.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel2.setForeground(new java.awt.Color(255, 255, 0));
+        jPanel2.add(jLayeredPane1);
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -190,7 +214,7 @@ public class keluhann extends javax.swing.JFrame {
         // TODO add your handling code here:
             try{
             String sql;
-            sql = "insert into keluhan values('"+txtTanggal.getText()+"','"+txtKeluhan.getText()+"')";
+            sql = "insert into keluhan values('"+txtTanggal.getText()+"','"+txtKeluhan.getText()+"','"+txtAlasan.getText()+"')";
             java.sql.Connection conn=(Connection)Awal.configDB();
             java.sql.PreparedStatement pstm=conn.prepareStatement(sql);
             pstm.execute();
@@ -207,7 +231,7 @@ public class keluhann extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             String sql;
-            sql = "update keluhan set tanggal='"+txtTanggal.getText()+"',Keluhan='"+txtKeluhan.getText()+"' where tanggal='"+txtTanggal.getText()+"'";
+            sql = "update keluhan set tanggal='"+txtTanggal.getText()+"',Keluhan='"+txtKeluhan.getText()+"',Alasan='"+txtAlasan.getText()+"' where tanggal='"+txtTanggal.getText()+"'";
             java.sql.Connection conn=(Connection)Awal.configDB();
             java.sql.PreparedStatement pstm=conn.prepareStatement(sql);
             pstm.execute();
@@ -239,7 +263,21 @@ public class keluhann extends javax.swing.JFrame {
 
         String keluhan = tabelKeluhann.getValueAt(baris, 2).toString();
         txtKeluhan.setText(keluhan);
+        
+        String alasan = tabelKeluhann.getValueAt(baris, 2).toString();
+        txtAlasan.setText(alasan);    
+        
     }//GEN-LAST:event_tabelKeluhannMouseClicked
+
+    private void txtAlasanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAlasanActionPerformed
+        // TODO add your handling code here:
+        kosongkan();
+    }//GEN-LAST:event_txtAlasanActionPerformed
+
+    private void txtKeluhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeluhanActionPerformed
+        // TODO add your handling code here:
+        kosongkan();
+    }//GEN-LAST:event_txtKeluhanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,7 +318,9 @@ public class keluhann extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelKeluhann;
     private javax.swing.JButton tbBatal;
@@ -288,6 +328,7 @@ public class keluhann extends javax.swing.JFrame {
     private javax.swing.JButton tbHapus;
     private javax.swing.JButton tbKeluar;
     private javax.swing.JButton tbSimpan;
+    private javax.swing.JTextField txtAlasan;
     private java.awt.TextField txtKeluhan;
     private java.awt.TextField txtTanggal;
     // End of variables declaration//GEN-END:variables
